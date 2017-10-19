@@ -38,11 +38,15 @@
 			<false/>
 		</dict>
 	</dict>
+	<key>NSHealthShareUsageDescription</key>
+	<string>share</string>
+	<key>NSHealthUpdateUsageDescription</key>
+	<string>update</string>
+	<key>NSMotionUsageDescription</key>
+	<string>Use data from pedometer</string>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
-		<string>UIInterfaceOrientationLandscapeLeft</string>
-		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 	<key>UISupportedInterfaceOrientations~ipad</key>
 	<array>
