@@ -10,6 +10,7 @@ import UIKit
 
 class FirstViewController: UIViewController {
 
+    //MARK: Instance variables
     var requiredContinuousSteps = 300
     var timerStartTime = Calendar.current.startOfDay(for: Date())
     var currentWalkSteps: Double! = 0
@@ -43,14 +44,20 @@ class FirstViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        
+        HealthKitManager().listenForStepsUpdate(view: self)
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+    
+    @objc func updateView() {
 
-        HealthKitManager().listenForStepsUpdate()
         updateStepsFromHealthKit()
-        
+        sleep(1)
+
         let timeFormat : DateFormatter = DateFormatter()
         timeFormat.dateFormat = "hh:mm a"
         
@@ -64,13 +71,9 @@ class FirstViewController: UIViewController {
         Timer.scheduledTimer(timeInterval: 0.5, target: self, selector: #selector(updateTimer), userInfo: nil, repeats: true)
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
     func updateStepsFromHealthKit() {
         HealthKitManager().getAllStepsUpdates() { todayTotalSteps, lastSuccessfulWalkSteps, lastSuccessfulWalkTime, lastWalkSteps, lastWalkTime, error in
+            
             self.todayTotalSteps = todayTotalSteps
             self.lastSuccessfulWalkSteps = lastSuccessfulWalkSteps
             self.lastSuccessfulWalkTime = lastSuccessfulWalkTime

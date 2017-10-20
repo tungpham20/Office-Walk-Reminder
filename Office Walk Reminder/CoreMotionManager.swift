@@ -16,11 +16,11 @@ class CoreMotionManager {
     
     func getCurrentWalkSteps() {
         let today = Date()
-        let startOfToday = Calendar.current.startOfDay(for: today)
+        //let startOfToday = Calendar.current.startOfDay(for: today)
         
         if CMPedometer.isStepCountingAvailable() {
             self.pedometer.startEventUpdates(handler: {pedometerEvent, error in
-                print(pedometerEvent?.date)
+                print(pedometerEvent?.date as Any)
             })
         }
     }
