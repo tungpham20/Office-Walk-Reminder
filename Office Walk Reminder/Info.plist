@@ -20,6 +20,16 @@
 	<string>1</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSHealthShareUsageDescription</key>
+	<string>share</string>
+	<key>NSHealthUpdateUsageDescription</key>
+	<string>update</string>
+	<key>NSMotionUsageDescription</key>
+	<string>Use data from pedometer</string>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>fetch</string>
+	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
@@ -38,12 +48,6 @@
 			<false/>
 		</dict>
 	</dict>
-	<key>NSHealthShareUsageDescription</key>
-	<string>share</string>
-	<key>NSHealthUpdateUsageDescription</key>
-	<string>update</string>
-	<key>NSMotionUsageDescription</key>
-	<string>Use data from pedometer</string>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>

@@ -7,16 +7,61 @@
 //
 
 import UIKit
+import UserNotifications
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
-
+    
+    func scheduleNextFetch(){
+        let nextReminderTime = FirstViewController().nextReminderTime()
+        let intervalUntilNextReminderInSeconds = nextReminderTime.timeIntervalSince(Date())
+        
+        UIApplication.shared.setMinimumBackgroundFetchInterval(intervalUntilNextReminderInSeconds)
+        
+        print(FirstViewController().timeFormat(nextReminderTime), "next fetch time scheduled in ", Int(intervalUntilNextReminderInSeconds/60), " minutes")
+    }
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
+        // User Notification
+        let center = UNUserNotificationCenter.current()
+        center.requestAuthorization(options: [.alert]){ (granted, error) in
+            if !granted {
+                print("close the app because User Notification is not allowed")
+            }
+        }
+        
+        // Background fetch: set default fetch interval to 1 hour initially
+        UIApplication.shared.setMinimumBackgroundFetchInterval(3600)
+        
         return true
+    }
+    
+    // Background fetch
+    func application(_ application: UIApplication, performFetchWithCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+        if  let tabBarController = window?.rootViewController as? UITabBarController,
+            let viewControllers = tabBarController.viewControllers {
+            for viewController in viewControllers {
+                if let firstViewController = viewController as? FirstViewController {
+                    firstViewController.fetch {                        
+                        // Update Steps data and notification accordingly if there is any changes
+                        firstViewController.updateStepsDataAndUpdateView()
+                        
+                        // If more than 1 hour has passed since timerStartTime, notify immediately
+                        if Int(Date().timeIntervalSince(FirstViewController.timerStartTime)) >= FirstViewController.intervalUntilFirstReminderInMinutes*60 {
+                            firstViewController.bannerNotifyNow()
+                        }
+                        
+                        scheduleNextFetch()
+                        
+                        completionHandler(.newData)
+                    }
+                }
+            }
+        }
     }
 
     func applicationWillResignActive(_ application: UIApplication) {
@@ -27,6 +72,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationDidEnterBackground(_ application: UIApplication) {
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+        
+        scheduleNextFetch()
     }
 
     func applicationWillEnterForeground(_ application: UIApplication) {
@@ -41,6 +88,4 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
 
-
 }
-

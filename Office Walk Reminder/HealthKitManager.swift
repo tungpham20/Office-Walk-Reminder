@@ -63,7 +63,6 @@ class HealthKitManager {
                     }
                     
                     todayTotalSteps += lastWalkSteps
-                    //print(lastWalkSteps, lastWalkTime)
                 }
             }
 
@@ -82,9 +81,9 @@ class HealthKitManager {
             if error != nil {
                 print("Error listening for steps update")
             }
-
+            //print("listenForStepsUpdate")
             DispatchQueue.main.async {
-                view.updateView()
+                view.updateStepsDataAndUpdateView()
             }
         }
         
