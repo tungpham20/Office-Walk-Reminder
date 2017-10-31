@@ -18,23 +18,16 @@ class SecondViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     
-    @IBOutlet weak var tableviewRequiredSteps: UITableView!
-    @IBOutlet weak var tableviewDailyWorkHours: UITableView!
-    @IBOutlet weak var tableviewReminderInterval: UITableView!
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        
-        self.tableviewRequiredSteps.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
 
 }
 
