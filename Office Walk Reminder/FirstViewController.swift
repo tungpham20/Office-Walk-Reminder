@@ -13,11 +13,12 @@ import UserNotificationsUI
 class FirstViewController: UIViewController {
     
     //MARK: Instance variables
-    static let requiredContinuousStepsForASuccessfulWalk = 300
-    static let intervalUntilFirstReminderInMinutes = 60
-    static let intervalAfterFirstReminderInMinutes = 15
-    static let dailyWorkStartTime = DateComponents(hour: 8, minute: 0)
-    static let dailyWorkEndTime = DateComponents(hour: 17, minute: 0)
+    static var requiredContinuousStepsForASuccessfulWalk    = UserDefaults.standard.value(forKey: "numberOfSteps") as! Int
+    static var dailyWorkStartTime                           = UserDefaults.standard.value(forKey: "workStartTime") as! Date
+    static var dailyWorkEndTime                             = UserDefaults.standard.value(forKey: "workEndTime") as! Date
+    static var intervalUntilFirstReminderInMinutes          = UserDefaults.standard.value(forKey: "firstInterval") as! Int
+    static var intervalAfterFirstReminderInMinutes          = UserDefaults.standard.value(forKey: "repeatedInterval") as! Int
+
     
     static var timerStartTime = Calendar.current.startOfDay(for: Date())
     var currentWalkSteps: Double! = 0
@@ -56,10 +57,24 @@ class FirstViewController: UIViewController {
         Timer.scheduledTimer(timeInterval: 0.5, target: self, selector: #selector(updateTimer), userInfo: nil, repeats: true)
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        FirstViewController.reloadSettings()
+        updateStepsDataAndUpdateView()
+    }
+    
+    static func reloadSettings() {
+        FirstViewController.requiredContinuousStepsForASuccessfulWalk    = UserDefaults.standard.value(forKey: "numberOfSteps") as! Int
+        FirstViewController.dailyWorkStartTime                           = UserDefaults.standard.value(forKey: "workStartTime") as! Date
+        FirstViewController.dailyWorkEndTime                             = UserDefaults.standard.value(forKey: "workEndTime") as! Date
+        FirstViewController.intervalUntilFirstReminderInMinutes          = UserDefaults.standard.value(forKey: "firstInterval") as! Int
+        FirstViewController.intervalAfterFirstReminderInMinutes          = UserDefaults.standard.value(forKey: "repeatedInterval") as! Int
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
     
     
     func fetch(_ completion: () -> Void){
@@ -71,16 +86,17 @@ class FirstViewController: UIViewController {
         return Calendar.current.date(from: timeDateComponents)!
     }
     
-    func dailyTimeOfToday(dailyHourMinute: DateComponents) -> Date {
+    func dailyTimeOfToday(dailyWorkHour: Date) -> Date {
         let today = Date()
         let todayDateComponents = Calendar.current.dateComponents([.year, .month, .day], from: today)
+        let dailyWorkHourDateComponents = Calendar.current.dateComponents([.hour, .minute], from: dailyWorkHour)
         
         let dailyTimeOfTodayDateComponents = DateComponents(
             year    : todayDateComponents.year,
             month   : todayDateComponents.month,
             day     : todayDateComponents.day,
-            hour    : dailyHourMinute.hour,
-            minute  : dailyHourMinute.minute
+            hour    : dailyWorkHourDateComponents.hour,
+            minute  : dailyWorkHourDateComponents.minute
         )
         
         return Calendar.current.date(from: dailyTimeOfTodayDateComponents)!
@@ -94,8 +110,8 @@ class FirstViewController: UIViewController {
             nextReminderTime = Calendar.current.date(byAdding: .minute, value: FirstViewController.intervalAfterFirstReminderInMinutes, to: nextReminderTime)!
         }
         
-        let todayStartTime = dailyTimeOfToday(dailyHourMinute: FirstViewController.dailyWorkStartTime)
-        let todayEndTime = dailyTimeOfToday(dailyHourMinute: FirstViewController.dailyWorkEndTime)
+        let todayStartTime = dailyTimeOfToday(dailyWorkHour: FirstViewController.dailyWorkStartTime)
+        let todayEndTime = dailyTimeOfToday(dailyWorkHour: FirstViewController.dailyWorkEndTime)
         let tomorrowStartTime = Calendar.current.date(byAdding: .day, value: 1, to: todayStartTime)!
         
         nextReminderTime = nextReminderTime < todayStartTime ? todayStartTime : nextReminderTime
@@ -124,16 +140,16 @@ class FirstViewController: UIViewController {
     
     func timeFormat(_ time: Date) -> String {
         let timeFormat : DateFormatter = DateFormatter()
-        timeFormat.dateFormat = "hh:mm:ss a"
+        timeFormat.dateFormat = "hh:mm a"
         
         return timeFormat.string(from: time)
     }
 
     func bannerNotifyNow(){
         let content = UNMutableNotificationContent()
-        content.title = "Last succesful walk"
-        content.subtitle = "Last walk"
-        content.body = "Total steps: " + String(Int(todayTotalSteps))
+        content.title = "Last succesful walk:" + String(Date().timeIntervalSince(lastSuccessfulWalkTime)/60) + "mins ago"
+        content.subtitle = "Last walk:" + String(Date().timeIntervalSince(lastWalkTime)/60) + "mins ago"
+        content.body = "Today steps: " + String(Int(todayTotalSteps))
         
         // Notify in a second from now
         let date = Calendar.current.date(byAdding: .second, value: 1, to: Date())

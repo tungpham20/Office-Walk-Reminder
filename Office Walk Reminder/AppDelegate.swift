@@ -12,7 +12,31 @@ import UserNotifications
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
+    // Default value for all settings
+    static let defaultNumberOfSteps = 300
+    static let defaultWorkStartTime = Date(timeIntervalSinceReferenceDate: 46800)
+    static let defaultWorkEndTime   = Date(timeIntervalSinceReferenceDate: 79200)
+    static let defaultFirstInterval = 60
+    static let defaultRepeatedInterval = 15
+    
     var window: UIWindow?
+  
+    func setupDefaultSettings() {
+        let defaults = UserDefaults.standard
+        
+        //defaults.set(AppDelegate.defaultNumberOfSteps   , forKey: "defaultNumberOfSteps")
+        //defaults.set(AppDelegate.defaultWorkStartTime   , forKey: "defaultWorkStartTime")
+        //defaults.set(AppDelegate.defaultWorkEndTime     , forKey: "defaultWorkEndTime")
+        //defaults.set(AppDelegate.defaultFirstInterval   , forKey: "defaultFirstInterval")
+        //defaults.set(AppDelegate.defaultRepeatedInterval, forKey: "defaultRepeatedInterval")
+        
+        defaults.register(defaults: ["numberOfSteps"    : AppDelegate.defaultNumberOfSteps])
+        defaults.register(defaults: ["workStartTime"    : AppDelegate.defaultWorkStartTime])
+        defaults.register(defaults: ["workEndTime"      : AppDelegate.defaultWorkEndTime])
+        defaults.register(defaults: ["firstInterval"    : AppDelegate.defaultFirstInterval])
+        defaults.register(defaults: ["repeatedInterval" : AppDelegate.defaultRepeatedInterval])
+        
+    }
     
     func scheduleNextFetch(){
         let nextReminderTime = FirstViewController().nextReminderTime()
@@ -25,6 +49,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
+        setupDefaultSettings()
         
         // User Notification
         let center = UNUserNotificationCenter.current()

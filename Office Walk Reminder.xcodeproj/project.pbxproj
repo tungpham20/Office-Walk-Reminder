@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		723246DB1FA8F54A00D948D6 /* NumberOfStepsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 723246DA1FA8F54A00D948D6 /* NumberOfStepsViewController.swift */; };
+		723246DD1FAA1CE300D948D6 /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 723246DC1FAA1CE300D948D6 /* SettingsTableViewController.swift */; };
+		723246DF1FAA6F6300D948D6 /* DailyWorkHoursViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 723246DE1FAA6F6300D948D6 /* DailyWorkHoursViewController.swift */; };
+		723246E11FAB686A00D948D6 /* ReminderIntervalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 723246E01FAB686A00D948D6 /* ReminderIntervalViewController.swift */; };
 		7266052A1F901031006A9B85 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 726605291F901031006A9B85 /* AppDelegate.swift */; };
 		7266052C1F901031006A9B85 /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7266052B1F901031006A9B85 /* FirstViewController.swift */; };
 		7266052E1F901031006A9B85 /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7266052D1F901031006A9B85 /* SecondViewController.swift */; };
@@ -38,6 +42,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		723246DA1FA8F54A00D948D6 /* NumberOfStepsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberOfStepsViewController.swift; sourceTree = "<group>"; };
+		723246DC1FAA1CE300D948D6 /* SettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
+		723246DE1FAA6F6300D948D6 /* DailyWorkHoursViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyWorkHoursViewController.swift; sourceTree = "<group>"; };
+		723246E01FAB686A00D948D6 /* ReminderIntervalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReminderIntervalViewController.swift; sourceTree = "<group>"; };
 		726605261F901030006A9B85 /* Office Walk Reminder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Office Walk Reminder.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		726605291F901031006A9B85 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7266052B1F901031006A9B85 /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
@@ -111,13 +119,17 @@
 				7266055C1F9011C1006A9B85 /* Office Walk Reminder.entitlements */,
 				726605291F901031006A9B85 /* AppDelegate.swift */,
 				7266052B1F901031006A9B85 /* FirstViewController.swift */,
+				723246DA1FA8F54A00D948D6 /* NumberOfStepsViewController.swift */,
 				7266052D1F901031006A9B85 /* SecondViewController.swift */,
 				7266052F1F901031006A9B85 /* Main.storyboard */,
+				723246DE1FAA6F6300D948D6 /* DailyWorkHoursViewController.swift */,
+				723246DC1FAA1CE300D948D6 /* SettingsTableViewController.swift */,
 				726605321F901031006A9B85 /* Assets.xcassets */,
 				726605341F901031006A9B85 /* LaunchScreen.storyboard */,
 				726605371F901031006A9B85 /* Info.plist */,
 				7266055F1F9015CE006A9B85 /* HealthKitManager.swift */,
 				726605611F97A213006A9B85 /* CoreMotionManager.swift */,
+				723246E01FAB686A00D948D6 /* ReminderIntervalViewController.swift */,
 			);
 			path = "Office Walk Reminder";
 			sourceTree = "<group>";
@@ -292,9 +304,13 @@
 			files = (
 				7266052E1F901031006A9B85 /* SecondViewController.swift in Sources */,
 				726605621F97A213006A9B85 /* CoreMotionManager.swift in Sources */,
+				723246E11FAB686A00D948D6 /* ReminderIntervalViewController.swift in Sources */,
 				7266052A1F901031006A9B85 /* AppDelegate.swift in Sources */,
+				723246DF1FAA6F6300D948D6 /* DailyWorkHoursViewController.swift in Sources */,
 				726605601F9015CE006A9B85 /* HealthKitManager.swift in Sources */,
+				723246DB1FA8F54A00D948D6 /* NumberOfStepsViewController.swift in Sources */,
 				7266052C1F901031006A9B85 /* FirstViewController.swift in Sources */,
+				723246DD1FAA1CE300D948D6 /* SettingsTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
