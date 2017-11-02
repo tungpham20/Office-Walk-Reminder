@@ -44,7 +44,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         UIApplication.shared.setMinimumBackgroundFetchInterval(intervalUntilNextReminderInSeconds)
         
-        print(FirstViewController().timeFormat(nextReminderTime), "next fetch time scheduled in ", Int(intervalUntilNextReminderInSeconds/60), " minutes")
+        print("----------", FirstViewController().timeFormat(nextReminderTime), "next fetch time scheduled in ", Int(intervalUntilNextReminderInSeconds/60), " minutes")
     }
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
