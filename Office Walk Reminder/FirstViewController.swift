@@ -147,8 +147,8 @@ class FirstViewController: UIViewController {
 
     func bannerNotifyNow(){
         let content = UNMutableNotificationContent()
-        content.title = "Last succesful walk: " + String(Int(Date().timeIntervalSince(lastSuccessfulWalkTime)/60)) + "' ago - " + String(Int(lastSuccessfulWalkSteps)) + " steps"
-        content.subtitle = "Last walk: " + String(Int(Date().timeIntervalSince(lastWalkTime)/60)) + "' ago - " + String(Int(lastWalkSteps)) + " steps"
+        content.title       = "Last succesful walk: " + String(Int(Date().timeIntervalSince(lastSuccessfulWalkTime)/60)) + "' ago - " + String(Int(lastSuccessfulWalkSteps)) + " steps"
+        content.subtitle    = "Last walk:                    " + String(Int(Date().timeIntervalSince(lastWalkTime)/60)) + "' ago - " + String(Int(lastWalkSteps)) + " steps"
         content.body = "Today steps: " + String(Int(todayTotalSteps)) + " steps"
         
         // Notify in a second from now
